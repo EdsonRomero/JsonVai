@@ -1,0 +1,43 @@
+﻿@model IEnumerable<List<Cliente>>
+
+
+<h2>Pesquisar Clientes</h2>
+
+<form asp-action="Pesquisar" method="post">
+    <div class="form-group">
+        <label for="pergunta">Pergunta:</label>
+        <input type="text" id="pergunta" name="pergunta" class="form-control" />
+    </div>
+    <button type="submit" class="btn btn-primary">Pesquisar</button>
+</form>
+
+@if (!string.IsNullOrEmpty(ViewBag.Pergunta))
+{
+    <h3>Resultado da Pesquisa para "@ViewBag.Pergunta":</h3>
+    @if (((List<JsonVai.Models.Cliente>)ViewBag.Resultados).Count > 0)
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Email</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var cliente in ViewBag.Resultados)
+                {
+                    <tr>
+                        <td>@cliente.Id</td>
+                        <td>@cliente.Nome</td>
+                        <td>@cliente.Email</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>Nenhum resultado encontrado.</p>
+    }
+}
